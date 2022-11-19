@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 namespace :batch do
-  desc "Create Database"
+  desc 'Create Database'
   task populate_database: :environment do
     14.times do |user|
       User.create!(
@@ -9,21 +11,21 @@ namespace :batch do
         course_id: 1
       )
     end
-    
+
     Course.create!(
-      name: "DSA"
+      name: 'DSA'
     )
-    
+
     Book.create!(
-      name: "Introduction to Algorithms", 
-      content: "Some Text", 
+      name: 'Introduction to Algorithms',
+      content: 'Some Text',
       course_id: 1
     )
-    
+
     User.create!(
-      name: "admin",
-      email: "admin.example.com",
-      role: 1,
+      name: 'admin',
+      email: 'admin.example.com',
+      role: 1
     )
   end
 end
