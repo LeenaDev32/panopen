@@ -20,6 +20,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 1.minute do
+every :weekend, at: '12pm' do
   rake 'batch:populate_database'
 end

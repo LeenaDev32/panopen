@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+# app/controllers/users_controller.rb
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[show update destroy]
+
   def index
-    users = User.all
-    render json: users
+    render json: User.all.as_json
   end
 
   def show
-    user = User.find(params[:id])
-    render json: user
+    render json: @user
   end
 
   def create
@@ -17,20 +18,23 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    user.update(user_params)
-    render json: user
+    @user.update(user_params)
+    render json: @user
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy
-    render json: users
+    @user.destroy
+    render json: {}
   end
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email, :role, :course_id)
+    params.require(:user)
+          .permit(:name, :email, :role, :course_id)
   end
 end

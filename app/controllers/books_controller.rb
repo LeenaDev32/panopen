@@ -13,8 +13,8 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.create(book_params)
-    render json: @book
+    book = Book.create(book_params)
+    render json: book
   end
 
   def update

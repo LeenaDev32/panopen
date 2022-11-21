@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+# app/controllers/courses_controller.rb
 class CoursesController < ApplicationController
+  before_action :set_course, only: %i[show update destroy]
+
   def index
-    course = Course.all
-    render json: course
+    render json: Course.all.as_json
   end
 
   def show
-    course = Course.find(params[:id])
-    render json: course
+    render json: @course
   end
 
   def create
@@ -17,18 +18,20 @@ class CoursesController < ApplicationController
   end
 
   def update
-    course = Course.find(params[:id])
-    course.update(course_params)
-    render json: course
+    @course.update(course_params)
+    render json: @course
   end
 
   def destroy
-    course = Course.find(params[:id])
-    course.destroy
-    render json: courses
+    @course.destroy
+    render json: {}
   end
 
   private
+
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
   def course_params
     params.require(:course).permit(:name)

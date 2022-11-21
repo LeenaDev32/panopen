@@ -1,26 +1,15 @@
 # frozen_string_literal: true
 
-14.times do |user|
-  User.create!(
-    name: "user#{user}",
-    email: "user#{user}.example.com",
-    role: 0,
-    course_id: 1
-  )
-end
+# load File.join(Rails.root, 'lib', 'tasks', 'batch.rake')
+# Rake::Task['batch:populate_database'].invoke
 
-Course.create!(
-  name: 'DSA'
-)
+course = Course.create!(name: Faker::University.name)
 
 Book.create!(
-  name: 'Introduction to Algorithms',
-  content: 'Some Text',
-  course_id: 1
+  name: Faker::Book.title, course:,
+  content: Faker::Lorem.paragraph(sentence_count: 20)
 )
 
-User.create!(
-  name: 'admin',
-  email: 'admin.example.com',
-  role: 1
-)
+15.times do
+  User.create!(name: Faker::Name.name, email: Faker::Internet.email)
+end
