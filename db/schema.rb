@@ -31,11 +31,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_19_140428) do
 
   create_table "reading_times", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "course_id", null: false
+    t.bigint "book_id", null: false
     t.decimal "total_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_reading_times_on_course_id"
+    t.index ["book_id"], name: "index_reading_times_on_book_id"
     t.index ["user_id"], name: "index_reading_times_on_user_id"
   end
 
@@ -47,6 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_19_140428) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "reading_times", "courses"
+  add_foreign_key "reading_times", "books"
   add_foreign_key "reading_times", "users"
 end

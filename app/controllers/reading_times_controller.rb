@@ -5,7 +5,7 @@ class ReadingTimesController < ApplicationController
   before_action :set_reading_time, only: %i[show update destroy]
 
   def index
-    render json: ReadingTime.all.as_json
+    render json: ReadingTime.joins(:book, :user).select("reading_times.id, reading_times.total_time, users.email as user_email, books.name as book_name").as_json
   end
 
   def show
@@ -35,6 +35,6 @@ class ReadingTimesController < ApplicationController
 
   def reading_time_params
     params.require(:reading_time)
-          .permit(:total_time, :course_id, :user_id)
+          .permit(:total_time, :book_id, :user_id)
   end
 end
